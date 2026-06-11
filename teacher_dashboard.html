@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head"><h1>Teacher Dashboard</h1><p>Welcome, {{ current_user.name }}. Upload learning material for students.</p></div>
+<div class="stats">
+  <div class="stat card3d"><span>Total Platform Notes</span><strong>{{ total_notes }}</strong></div>
+  <div class="stat card3d"><span>Your Notes</span><strong>{{ teacher_notes }}</strong></div>
+  <div class="stat card3d"><span>Role</span><strong>Teacher</strong></div>
+</div>
+<section class="panel glass">
+  <div class="section-title"><h2>Recent Uploaded Notes</h2><a class="btn small" href="{{ url_for('upload_notes') }}">Upload Notes</a></div>
+  {% for note in recent_notes %}<div class="mini-item"><b>{{ note.title }}</b><span>{{ note.subject }} · {{ note.created_at }}</span></div>{% else %}<p>No notes uploaded yet.</p>{% endfor %}
+</section>
+{% endblock %}

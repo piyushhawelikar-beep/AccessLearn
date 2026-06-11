@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="auth-wrap">
+  <form class="auth-card glass" method="post">
+    <h1>Create Account</h1>
+    <p>Select your role and join AccessLearn.</p>
+    <label>Name</label><input name="name" required placeholder="Full name">
+    <label>Email</label><input type="email" name="email" required placeholder="you@example.com">
+    <label>Password</label><input type="password" name="password" required placeholder="Create password">
+    <label>Role</label>
+    <select name="role">
+      <option value="student">Student</option>
+      <option value="teacher">Teacher</option>
+    </select>
+    <button class="btn full" type="submit">Register</button>
+  </form>
+</div>
+{% endblock %}

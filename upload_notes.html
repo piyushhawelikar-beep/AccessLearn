@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head"><h1>Upload Notes</h1><p>Teachers can add notes for students.</p></div>
+<form class="form-panel glass" method="post">
+  <label>Title</label><input name="title" required placeholder="e.g. Basics of Artificial Intelligence">
+  <label>Subject</label><input name="subject" required placeholder="e.g. Computer Science">
+  <label>Description</label><input name="description" placeholder="Short description">
+  <label>Notes Content</label><textarea name="content" rows="10" required placeholder="Paste notes here..."></textarea>
+  <button class="btn" type="submit">Upload Notes</button>
+</form>
+{% endblock %}

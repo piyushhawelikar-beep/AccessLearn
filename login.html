@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="auth-wrap">
+  <form class="auth-card glass" method="post">
+    <h1>Login</h1>
+    <p>Continue your learning journey.</p>
+    <label>Email</label><input type="email" name="email" required placeholder="you@example.com">
+    <label>Password</label><input type="password" name="password" required placeholder="••••••••">
+    <button class="btn full" type="submit">Login</button>
+    <p class="muted">New user? <a href="{{ url_for('register') }}">Create account</a></p>
+  </form>
+</div>
+{% endblock %}

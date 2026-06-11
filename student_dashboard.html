@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head"><h1>Student Dashboard</h1><p>Welcome, {{ current_user.name }}. Learn, revise, and track your progress.</p></div>
+<div class="stats">
+  <div class="stat card3d"><span>Total Notes</span><strong>{{ total_notes }}</strong></div>
+  <div class="stat card3d"><span>Quizzes Attempted</span><strong>{{ total_quizzes }}</strong></div>
+  <div class="stat card3d"><span>Average Score</span><strong>{{ avg_score }}%</strong></div>
+</div>
+<div class="two-col">
+  <section class="panel glass"><h2>Latest Teacher Notes</h2>{% for note in recent_notes %}<div class="mini-item"><b>{{ note.title }}</b><span>{{ note.subject }} · {{ note.teacher_name or 'Teacher' }}</span></div>{% else %}<p>No notes yet.</p>{% endfor %}</section>
+  <section class="panel glass"><h2>Recent Quiz Results</h2>{% for r in recent_results %}<div class="mini-item"><b>{{ r.topic }}</b><span>{{ r.score }}/{{ r.total_questions }}</span></div>{% else %}<p>No quizzes attempted yet.</p>{% endfor %}</section>
+</div>
+{% endblock %}

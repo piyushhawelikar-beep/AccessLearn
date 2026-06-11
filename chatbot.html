@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head"><h1>AI Chatbot</h1><p>Ask doubts and get simple educational explanations.</p></div>
+<section class="chat-shell glass">
+  <div id="chatBox" class="chat-box">
+    <div class="bot bubble">Hi {{ current_user.name }}! Ask me any learning question.</div>
+  </div>
+  <form id="chatForm" class="chat-form">
+    <input id="messageInput" placeholder="Ask a doubt..." required>
+    <button class="btn" type="submit">Send</button>
+  </form>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>{% endblock %}

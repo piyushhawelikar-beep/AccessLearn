@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head"><h1>Quiz Generator</h1><p>Generate topic-wise quizzes and save scores.</p></div>
+<section class="panel glass">
+  <div class="quiz-config">
+    <input id="topicInput" placeholder="Enter topic e.g. Artificial Intelligence">
+    <button id="generateQuizBtn" class="btn">Generate Quiz</button>
+  </div>
+  <div id="quizContainer" class="quiz-container"></div>
+  <div id="quizResult" class="result-card"></div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>{% endblock %}

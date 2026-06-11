@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head"><h1>Notes Summarizer</h1><p>Convert long notes into revision-friendly bullet points.</p></div>
+<section class="two-col">
+  <div class="panel glass">
+    <h2>Paste Notes</h2>
+    <textarea id="notesInput" rows="14" placeholder="Paste your notes here..."></textarea>
+    <button id="summarizeBtn" class="btn">Summarize</button>
+  </div>
+  <div class="panel glass">
+    <h2>Summary</h2>
+    <pre id="summaryOutput" class="output-box">Your summary will appear here.</pre>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/summarizer.js') }}"></script>{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}AccessLearn | AI Learning Platform{% endblock %}
+{% block content %}
+<section class="hero glass">
+  <div class="hero-text">
+    <p class="eyebrow">IEEE TechForGood 2026 Project</p>
+    <h1>AI-Powered Inclusive Learning Platform</h1>
+    <p>AccessLearn helps students learn through AI doubt solving, teacher notes, summarization, quizzes, and progress tracking.</p>
+    <div class="hero-actions">
+      <a class="btn" href="{{ url_for('register') }}">Get Started</a>
+      <a class="btn ghost" href="{{ url_for('login') }}">Login</a>
+    </div>
+  </div>
+  <div class="hero-card card3d">
+    <div class="cube"><span>AI</span></div>
+    <h3>Student + Teacher Ecosystem</h3>
+    <p>Teachers upload notes. Students learn, summarize, ask doubts, and attempt quizzes.</p>
+  </div>
+</section>
+<section class="grid-4">
+  <div class="feature card3d"><h3>AI Chatbot</h3><p>Doubt solving and concept explanation.</p></div>
+  <div class="feature card3d"><h3>Teacher Notes</h3><p>Teachers share subject notes for students.</p></div>
+  <div class="feature card3d"><h3>Summarizer</h3><p>Long notes converted into short revision points.</p></div>
+  <div class="feature card3d"><h3>Quiz Generator</h3><p>Topic-wise quizzes with score tracking.</p></div>
+</section>
+{% endblock %}
