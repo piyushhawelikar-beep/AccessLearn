@@ -308,6 +308,41 @@ Note: Live AI response is temporarily unavailable, so this fallback learning res
     @login_required
     @role_required("teacher")
     def delete_note(note_id):
+        @app.route("/teacher/edit/<int:note_id>", methods=["GET", "POST"])
+    @login_required
+    @role_required("teacher")
+    def edit_note(note_id):
+        db = get_db()
+
+        note = db.execute(
+            "SELECT * FROM notes WHERE id = ? AND teacher_id = ?",
+            (note_id, session["user_id"]),
+        ).fetchone()
+
+        if not note:
+            flash("Note not found.", "danger")
+            return redirect(url_for("notes"))
+
+        if request.method == "POST":
+            title = request.form.get("title", "").strip()
+            subject = request.form.get("subject", "").strip()
+            description = request.form.get("description", "").strip()
+            content = request.form.get("content", "").strip()
+
+            db.execute(
+                """
+                UPDATE notes
+                SET title = ?, subject = ?, description = ?, content = ?
+                WHERE id = ? AND teacher_id = ?
+                """,
+                (title, subject, description, content, note_id, session["user_id"]),
+            )
+            db.commit()
+
+            flash("Note updated successfully.", "success")
+            return redirect(url_for("notes"))
+
+        return render_template("edit_note.html", note=note)
         db = get_db()
         db.execute(
             "DELETE FROM notes WHERE id = ? AND teacher_id = ?",
