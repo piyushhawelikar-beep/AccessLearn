@@ -3,12 +3,22 @@
 <div class="page-head"><h1>Learning Notes</h1><p>Teacher-uploaded notes for students.</p></div>
 <div class="notes-grid">
 {% for note in notes %}
+  
   <article class="note-card card3d">
     <span class="pill">{{ note.subject }}</span>
     <h2>{{ note.title }}</h2>
     <p class="muted">By {{ note.teacher_name or 'Teacher' }} · {{ note.created_at }}</p>
     <p>{{ note.description }}</p>
     <details><summary>Read notes</summary><p class="note-content">{{ note.content }}</p></details>
+    {% if current_user.role == 'teacher' and note.teacher_id == current_user.id %}
+<div style="margin-top:10px;">
+    <a href="{{ url_for('delete_note', note_id=note.id) }}"
+       class="btn danger"
+       onclick="return confirm('Delete this note?')">
+       Delete Note
+    </a>
+</div>
+{% endif %}
   </article>
 {% else %}
   <div class="panel glass"><p>No teacher notes available yet.</p></div>
