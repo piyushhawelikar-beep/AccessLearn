@@ -303,6 +303,22 @@ Note: Live AI response is temporarily unavailable, so this fallback learning res
             return redirect(url_for("notes"))
 
         return render_template("upload_notes.html")
+        @app.route("/teacher/delete-note/<int:note_id>")
+@login_required
+@role_required("teacher")
+def delete_note(note_id):
+    db = get_db()
+
+    db.execute(
+        "DELETE FROM notes WHERE id = ? AND teacher_id = ?",
+        (note_id, session["user_id"])
+    )
+
+    db.commit()
+
+    flash("Note deleted successfully.", "success")
+
+    return redirect(url_for("notes"))
 
     @app.post("/api/generate_notes")
     @login_required
