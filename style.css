@@ -18,3 +18,14 @@
     gap:10px;
     text-decoration:none;
 }
+.btn.danger{
+    background:#ff4d4d;
+    color:white;
+    padding:8px 14px;
+    border-radius:8px;
+    text-decoration:none;
+}
+
+.btn.danger:hover{
+    background:#e60000;
+}
