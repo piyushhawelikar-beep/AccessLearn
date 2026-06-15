@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head"><h1>{{ note.title }}</h1><p>{{ note.subject }} · By {{ note.teacher_name or 'Teacher' }}</p></div>
+<section class="panel glass" data-note-id="{{ note.id }}" id="studyArea">
+  <p class="muted">{{ note.description }}</p>
+  {% if note.content %}
+    <h2>Notes Content</h2>
+    <pre class="output-box">{{ note.content }}</pre>
+  {% endif %}
+  <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:14px;">
+    {% if note.file_filename %}<a class="btn" href="{{ url_for('uploaded_file', filename=note.file_filename) }}" target="_blank">Open Uploaded File: {{ note.file_original_name }}</a>{% endif %}
+    {% if note.resource_link %}<a class="btn ghost" href="{{ note.resource_link }}" target="_blank">Open Resource Link</a>{% endif %}
+    {% if note.video_link %}<a class="btn ghost" href="{{ note.video_link }}" target="_blank">Watch Video</a>{% endif %}
+  </div>
+  <p class="muted" style="margin-top:18px;">Study time is being tracked for teacher analytics.</p>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+  const noteId = document.getElementById('studyArea')?.dataset.noteId;
+  const start = Date.now();
+  function sendStudyTime(){
+    if(!noteId) return;
+    const seconds = Math.max(5, Math.round((Date.now() - start)/1000));
+    const data = JSON.stringify({note_id: noteId, time_spent: seconds});
+    if(navigator.sendBeacon){
+      navigator.sendBeacon('/api/study-log', new Blob([data], {type:'application/json'}));
+    } else {
+      fetch('/api/study-log', {method:'POST', headers:{'Content-Type':'application/json'}, body:data, keepalive:true});
+    }
+  }
+  window.addEventListener('beforeunload', sendStudyTime);
+  setInterval(sendStudyTime, 60000);
+</script>
+{% endblock %}

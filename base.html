@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}AccessLearn{% endblock %}</title>
-  <link rel="icon" href="{{ url_for('static', filename='images/go.png.jpg') }}">
+  <link rel="icon" href="{{ url_for('static', filename='images/logo.png.jpg') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
@@ -12,12 +12,9 @@
   <div class="bg-orb orb-two"></div>
   <nav class="nav glass">
     <a class="brand" href="{{ url_for('index') }}">
-    <img src="{{ url_for('static', filename='images/go.png.jpg') }}"
-         alt="AccessLearn Logo"
-         class="site-logo">
-
-    <span>AccessLearn</span>
-</a>
+      <img src="{{ url_for('static', filename='images/logo.png.jpg') }}" alt="AccessLearn Logo" class="site-logo">
+      <span>AccessLearn</span>
+    </a>
     <div class="nav-links">
       {% if current_user %}
         <a href="{{ url_for('dashboard') }}">Dashboard</a>
@@ -25,7 +22,11 @@
         <a href="{{ url_for('chatbot_page') }}">AI Chatbot</a>
         <a href="{{ url_for('summarizer_page') }}">Summarizer</a>
         <a href="{{ url_for('quiz_page') }}">Quiz</a>
-        {% if current_user.role == 'teacher' %}<a href="{{ url_for('upload_notes') }}">Upload Notes</a>{% endif %}
+        <a href="{{ url_for('meetings') }}">Meetings</a>
+        {% if current_user.role == 'teacher' %}
+          <a href="{{ url_for('upload_notes') }}">Upload</a>
+          <a href="{{ url_for('teacher_reports') }}">Reports</a>
+        {% endif %}
         <a class="btn small" href="{{ url_for('logout') }}">Logout</a>
       {% else %}
         <a href="{{ url_for('login') }}">Login</a>

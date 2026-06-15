@@ -1,10 +1,4 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS notes;
-DROP TABLE IF EXISTS quiz_results;
-DROP TABLE IF EXISTS chat_logs;
-DROP TABLE IF EXISTS summaries;
-
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
@@ -13,18 +7,23 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE notes (
+CREATE TABLE IF NOT EXISTS notes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     teacher_id INTEGER,
     title TEXT NOT NULL,
     subject TEXT NOT NULL,
     description TEXT,
-    content TEXT NOT NULL,
+    content TEXT,
+    file_filename TEXT,
+    file_original_name TEXT,
+    file_type TEXT,
+    resource_link TEXT,
+    video_link TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (teacher_id) REFERENCES users(id)
 );
 
-CREATE TABLE quiz_results (
+CREATE TABLE IF NOT EXISTS quiz_results (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id INTEGER,
     username TEXT,
@@ -35,7 +34,7 @@ CREATE TABLE quiz_results (
     FOREIGN KEY (student_id) REFERENCES users(id)
 );
 
-CREATE TABLE chat_logs (
+CREATE TABLE IF NOT EXISTS chat_logs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
     message TEXT NOT NULL,
@@ -44,11 +43,33 @@ CREATE TABLE chat_logs (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE summaries (
+CREATE TABLE IF NOT EXISTS summaries (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
     original_text TEXT NOT NULL,
     summary TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS study_logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    student_id INTEGER NOT NULL,
+    note_id INTEGER NOT NULL,
+    time_spent INTEGER NOT NULL DEFAULT 0,
+    viewed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES users(id),
+    FOREIGN KEY (note_id) REFERENCES notes(id)
+);
+
+CREATE TABLE IF NOT EXISTS meetings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    teacher_id INTEGER,
+    title TEXT NOT NULL,
+    meeting_date TEXT,
+    meeting_time TEXT,
+    meeting_link TEXT NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (teacher_id) REFERENCES users(id)
 );

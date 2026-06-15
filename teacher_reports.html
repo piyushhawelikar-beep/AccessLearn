@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head"><h1>Student Study Reports</h1><p>Track how much time students spend on your notes.</p></div>
+<section class="panel glass">
+  <table class="data-table">
+    <thead><tr><th>Student</th><th>Note</th><th>Subject</th><th>Time Spent</th><th>Date</th></tr></thead>
+    <tbody>
+    {% for log in logs %}
+      <tr><td>{{ log.student_name }}</td><td>{{ log.note_title }}</td><td>{{ log.note_subject }}</td><td>{{ (log.time_spent / 60)|round(1) }} min</td><td>{{ log.viewed_at }}</td></tr>
+    {% else %}
+      <tr><td colspan="5">No study activity recorded yet.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

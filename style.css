@@ -29,3 +29,10 @@
 .btn.danger:hover{
     background:#e60000;
 }
+.site-logo{width:46px;height:46px;object-fit:contain;margin-right:10px;border-radius:12px;filter:drop-shadow(0 0 10px rgba(0,255,255,.35));}
+.data-table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:16px;}
+.data-table th,.data-table td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.12);text-align:left;vertical-align:top;}
+.data-table th{background:rgba(255,255,255,.08);}
+.btn.danger{background:linear-gradient(135deg,#ff5f6d,#ffc371);color:#111;}
+pre.output-box{white-space:pre-wrap;word-wrap:break-word;}
+.mini-item p{margin:6px 0 0;opacity:.85;}
