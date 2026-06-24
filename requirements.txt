@@ -1,5 +1,11 @@
 Flask
 gunicorn
 python-dotenv
+openai
 google-generativeai
 Werkzeug
+PyPDF2
+python-docx
+python-pptx
+requests
+beautifulsoup4

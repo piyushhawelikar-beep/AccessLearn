@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head"><h1>Quiz Studio</h1><p>Generate, publish, and manage 10-question teacher quizzes from one place.</p></div>
+<section class="two-col">
+  <form class="form-panel glass" method="post">
+    <h2>Generate & Publish Quiz</h2>
+    <label>Quiz Title</label><input name="title" placeholder="e.g. AI Basics Quiz">
+    <label>Topic</label><input name="topic" placeholder="e.g. Artificial Intelligence">
+    <label>Use Teacher Note (optional)</label>
+    <select name="note_id">
+      <option value="0">No note selected</option>
+      {% for note in notes %}<option value="{{ note.id }}">{{ note.title }} — {{ note.subject }}</option>{% endfor %}
+    </select>
+    <button class="btn" type="submit">Generate & Publish 10-Question Quiz</button>
+  </form>
+  <section class="panel glass">
+    <h2>Published Quizzes</h2>
+    {% for q in quizzes %}
+      <div class="mini-item"><b>{{ q.title }}</b><span>{{ q.topic }} · {{ q.created_at }}</span><a class="btn small" href="{{ url_for('attempt_published_quiz', quiz_id=q.id) }}">Preview</a></div>
+    {% else %}<p>No published quizzes yet.</p>{% endfor %}
+  </section>
+</section>
+{% endblock %}

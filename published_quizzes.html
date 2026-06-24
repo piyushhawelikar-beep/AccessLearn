@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head"><h1>Published Quizzes</h1><p>Attempt quizzes shared by teachers.</p></div>
+<section class="panel glass">
+  {% for q in quizzes %}
+    <div class="mini-item"><b>{{ q.title }}</b><span>{{ q.topic }} · By {{ q.teacher_name or 'Teacher' }}</span><a class="btn small" href="{{ url_for('attempt_published_quiz', quiz_id=q.id) }}">Attempt Quiz</a></div>
+  {% else %}<p>No quizzes published yet.</p>{% endfor %}
+</section>
+{% endblock %}

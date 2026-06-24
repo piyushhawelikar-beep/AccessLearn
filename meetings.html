@@ -1,21 +1,91 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<div class="page-head"><h1>Meetings</h1><p>Teachers can create Google Meet/Zoom sessions and students can join from here.</p></div>
+
+<div class="page-head">
+    <h1>Meetings</h1>
+    <p>
+        Teachers can create Google Meet/Zoom sessions and students can join from here.
+    </p>
+</div>
+
 {% if current_user.role == 'teacher' %}
 <form class="form-panel glass" method="post">
-  <h2>Create Meeting</h2>
-  <label>Meeting Title</label><input name="title" required placeholder="e.g. Week 3 Mentor Session">
-  <label>Date</label><input type="date" name="meeting_date">
-  <label>Time</label><input type="time" name="meeting_time">
-  <label>Meeting Link</label><input name="meeting_link" required placeholder="https://meet.google.com/...">
-  <label>Description</label><textarea name="description" rows="3" placeholder="Agenda or instructions"></textarea>
-  <button class="btn" type="submit">Create Meeting</button>
+
+    <h2>Create Meeting</h2>
+
+    <label>Meeting Title</label>
+    <input
+        name="title"
+        required
+        placeholder="e.g. Week 3 Mentor Session">
+
+    <label>Date</label>
+    <input
+        type="date"
+        name="meeting_date">
+
+    <label>Time</label>
+    <input
+        type="time"
+        name="meeting_time">
+
+    <label>Meeting Link</label>
+    <input
+        name="meeting_link"
+        required
+        placeholder="https://meet.google.com/...">
+
+    <label>Description</label>
+    <textarea
+        name="description"
+        rows="3"
+        placeholder="Agenda or instructions"></textarea>
+
+    <button class="btn" type="submit">
+        Create Meeting
+    </button>
+
 </form>
 {% endif %}
+
 <section class="panel glass">
-  <h2>Available Meetings</h2>
-  {% for m in meetings %}
-    <div class="mini-item"><b>{{ m.title }}</b><span>{{ m.meeting_date }} {{ m.meeting_time }} · By {{ m.teacher_name or 'Teacher' }}</span><p>{{ m.description }}</p><a class="btn small" href="{{ m.meeting_link }}" target="_blank">Join Meeting</a></div>
-  {% else %}<p>No meetings available yet.</p>{% endfor %}
+
+    <h2>Available Meetings</h2>
+
+    {% for m in meetings %}
+
+    <div class="mini-item meeting-card">
+
+        <h3>{{ m.title }}</h3>
+
+        <span class="meeting-meta">
+            {{ m.meeting_date }}
+            {{ m.meeting_time }}
+            • By {{ m.teacher_name or 'Teacher' }}
+        </span>
+
+        {% if m.description %}
+        <p class="meeting-desc">
+            {{ m.description }}
+        </p>
+        {% endif %}
+
+        <a
+            class="btn small meeting-btn"
+            href="{{ m.meeting_link }}"
+            target="_blank">
+            Join Meeting
+        </a>
+
+    </div>
+
+    {% else %}
+
+    <p>No meetings available yet.</p>
+
+    {% endfor %}
+
 </section>
+
 {% endblock %}

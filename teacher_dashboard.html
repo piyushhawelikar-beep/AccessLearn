@@ -1,21 +1,55 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="page-head"><h1>Teacher Dashboard</h1><p>Welcome, {{ current_user.name }}. Share learning resources and track student engagement.</p></div>
-<div class="stats">
-  <div class="stat card3d"><span>Total Platform Notes</span><strong>{{ total_notes }}</strong></div>
-  <div class="stat card3d"><span>Your Notes</span><strong>{{ teacher_notes }}</strong></div>
+<div class="page-head">
+  <h1>Teacher Dashboard</h1>
+  <p>Welcome, {{ current_user.name }}. Share resources, publish quizzes, schedule meetings, and monitor learning in one place.</p>
+</div>
+
+<div class="stats compact-stats">
+  <div class="stat card3d"><span>Your Resources</span><strong>{{ teacher_notes }}</strong></div>
   <div class="stat card3d"><span>Total Students</span><strong>{{ total_students }}</strong></div>
-  <div class="stat card3d"><span>Total Study Time</span><strong>{{ total_study_minutes }} min</strong></div>
+  <div class="stat card3d"><span>Study Time</span><strong>{{ total_study_minutes }} min</strong></div>
+  <div class="stat card3d"><span>Published Quizzes</span><strong>{{ total_published_quizzes }}</strong></div>
 </div>
-<div class="two-col">
-<section class="panel glass">
-  <div class="section-title"><h2>Recent Uploaded Resources</h2><a class="btn small" href="{{ url_for('upload_notes') }}">Upload Resource</a></div>
-  {% for note in recent_notes %}<div class="mini-item"><b>{{ note.title }}</b><span>{{ note.subject }} · {{ note.created_at }}</span></div>{% else %}<p>No notes uploaded yet.</p>{% endfor %}
+
+<section class="quick-actions glass">
+  <a class="btn" href="{{ url_for('upload_notes') }}">Upload Resource</a>
+  <a class="btn ghost" href="{{ url_for('teacher_quizzes') }}">Quiz Studio</a>
+  <a class="btn ghost" href="{{ url_for('meetings') }}">Meetings</a>
+  <a class="btn ghost" href="{{ url_for('teacher_reports') }}">Analytics</a>
 </section>
-<section class="panel glass">
-  <div class="section-title"><h2>Meetings</h2><a class="btn small" href="{{ url_for('meetings') }}">Manage Meetings</a></div>
-  {% for m in meetings %}<div class="mini-item"><b>{{ m.title }}</b><span>{{ m.meeting_date }} {{ m.meeting_time }}</span></div>{% else %}<p>No meetings created yet.</p>{% endfor %}
-</section>
+
+<div class="two-col compact-panels">
+  <section class="panel glass">
+    <div class="section-title">
+      <h2>Recent Resources</h2>
+      <a class="btn small" href="{{ url_for('upload_notes') }}">Add</a>
+    </div>
+    {% for note in recent_notes %}
+      <div class="mini-item"><b>{{ note.title }}</b><span>{{ note.subject }} · {{ note.created_at }}</span></div>
+    {% else %}
+      <p>No resources uploaded yet.</p>
+    {% endfor %}
+  </section>
+
+  <section class="panel glass">
+    <div class="section-title">
+      <h2>Upcoming Meetings</h2>
+      <a class="btn small" href="{{ url_for('meetings') }}">Manage</a>
+    </div>
+    {% for m in meetings %}
+      <div class="mini-item"><b>{{ m.title }}</b><span>{{ m.meeting_date }} {{ m.meeting_time }}</span></div>
+    {% else %}
+      <p>No meetings created yet.</p>
+    {% endfor %}
+  </section>
 </div>
-<section class="panel glass"><h2>Teacher Analytics</h2><p>Use the Reports page to see which student studied which note and for how long.</p><a class="btn" href="{{ url_for('teacher_reports') }}">View Student Study Reports</a></section>
+
+<section class="panel glass">
+  <div class="section-title">
+    <h2>Teacher Analytics</h2>
+    <a class="btn small" href="{{ url_for('teacher_reports') }}">Open Analytics</a>
+  </div>
+  <p>Study-time reports and quiz performance reports are now accessed from one Analytics section.</p>
+</section>
 {% endblock %}

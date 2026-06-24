@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head"><h1>Student Quiz Reports</h1><p>See student attempts, scores, and quiz performance.</p></div>
+<section class="panel glass">
+  <table class="data-table">
+    <thead><tr><th>Student</th><th>Quiz</th><th>Topic</th><th>Score</th><th>Date</th></tr></thead>
+    <tbody>
+      {% for a in attempts %}
+      <tr><td>{{ a.student_name }}</td><td>{{ a.quiz_title }}</td><td>{{ a.topic }}</td><td>{{ a.score }}/{{ a.total_questions }}</td><td>{{ a.attempted_at }}</td></tr>
+      {% else %}<tr><td colspan="5">No quiz attempts yet.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

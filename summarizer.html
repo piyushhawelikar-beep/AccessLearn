@@ -1,10 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="page-head"><h1>Notes Summarizer</h1><p>Convert long notes into revision-friendly bullet points.</p></div>
+<div class="page-head"><h1>Smart Notes Summarizer</h1><p>Summarize pasted text, PDF/DOCX/PPTX/TXT files, links, or teacher-uploaded notes.</p></div>
 <section class="two-col">
   <div class="panel glass">
-    <h2>Paste Notes</h2>
-    <textarea id="notesInput" rows="14" placeholder="Paste your notes here..."></textarea>
+    <h2>Summarize Content</h2>
+    <label>Paste Text</label>
+    <textarea id="notesInput" rows="8" placeholder="Paste your notes here..."></textarea>
+    <label>Upload File</label>
+    <input id="summaryFile" type="file" accept=".pdf,.docx,.pptx,.txt">
+    <label>Web / Resource Link</label>
+    <input id="summaryUrl" placeholder="https://example.com/article-or-notes">
+    <label>Or Select Uploaded Teacher Notes</label>
+    <select id="summaryNote">
+      <option value="0">No teacher note selected</option>
+      {% for note in notes %}<option value="{{ note.id }}">{{ note.title }} — {{ note.subject }}</option>{% endfor %}
+    </select>
     <button id="summarizeBtn" class="btn">Summarize</button>
   </div>
   <div class="panel glass">

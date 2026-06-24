@@ -1,15 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="page-head"><h1>Student Study Reports</h1><p>Track how much time students spend on your notes.</p></div>
+<div class="page-head"><h1>Teacher Analytics</h1><p>Unified report for study engagement and quiz performance.</p></div>
+<div class="stats compact-stats">
+  <div class="stat card3d"><span>Active Students</span><strong>{{ active_students }}</strong></div>
+  <div class="stat card3d"><span>Viewed Notes</span><strong>{{ viewed_notes }}</strong></div>
+  <div class="stat card3d"><span>Total Study Time</span><strong>{{ total_minutes }} min</strong></div>
+  <div class="stat card3d"><span>Quiz Attempts</span><strong>{{ quiz_attempt_count }}</strong></div>
+  <div class="stat card3d"><span>Avg Quiz Score</span><strong>{{ avg_quiz_score }}%</strong></div>
+</div>
 <section class="panel glass">
+  <h2>Study Time Report</h2>
   <table class="data-table">
-    <thead><tr><th>Student</th><th>Note</th><th>Subject</th><th>Time Spent</th><th>Date</th></tr></thead>
+    <thead><tr><th>Student</th><th>Resource</th><th>Subject</th><th>Time Spent</th><th>Date</th></tr></thead>
     <tbody>
     {% for log in logs %}
       <tr><td>{{ log.student_name }}</td><td>{{ log.note_title }}</td><td>{{ log.note_subject }}</td><td>{{ (log.time_spent / 60)|round(1) }} min</td><td>{{ log.viewed_at }}</td></tr>
     {% else %}
       <tr><td colspan="5">No study activity recorded yet.</td></tr>
     {% endfor %}
+    </tbody>
+  </table>
+</section>
+<section class="panel glass">
+  <h2>Quiz Performance Report</h2>
+  <table class="data-table">
+    <thead><tr><th>Student</th><th>Quiz</th><th>Topic</th><th>Score</th><th>Date</th></tr></thead>
+    <tbody>
+      {% for a in attempts %}
+      <tr><td>{{ a.student_name }}</td><td>{{ a.quiz_title }}</td><td>{{ a.topic }}</td><td>{{ a.score }}/{{ a.total_questions }}</td><td>{{ a.attempted_at }}</td></tr>
+      {% else %}<tr><td colspan="5">No quiz attempts yet.</td></tr>{% endfor %}
     </tbody>
   </table>
 </section>

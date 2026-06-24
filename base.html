@@ -10,7 +10,7 @@
 <body>
   <div class="bg-orb orb-one"></div>
   <div class="bg-orb orb-two"></div>
-  <nav class="nav glass">
+  <nav class="nav glass compact-nav">
     <a class="brand" href="{{ url_for('index') }}">
       <img src="{{ url_for('static', filename='images/logo.png.jpg') }}" alt="AccessLearn Logo" class="site-logo">
       <span>AccessLearn</span>
@@ -18,14 +18,18 @@
     <div class="nav-links">
       {% if current_user %}
         <a href="{{ url_for('dashboard') }}">Dashboard</a>
-        <a href="{{ url_for('notes') }}">Notes</a>
-        <a href="{{ url_for('chatbot_page') }}">AI Chatbot</a>
+        <a href="{{ url_for('notes') }}">Resources</a>
+        <a href="{{ url_for('chatbot_page') }}">Chatbot</a>
         <a href="{{ url_for('summarizer_page') }}">Summarizer</a>
-        <a href="{{ url_for('quiz_page') }}">Quiz</a>
+        {% if current_user.role == 'teacher' %}
+          <a href="{{ url_for('teacher_quizzes') }}">Quiz Studio</a>
+        {% else %}
+          <a href="{{ url_for('published_quizzes') }}">Quiz</a>
+        {% endif %}
         <a href="{{ url_for('meetings') }}">Meetings</a>
         {% if current_user.role == 'teacher' %}
           <a href="{{ url_for('upload_notes') }}">Upload</a>
-          <a href="{{ url_for('teacher_reports') }}">Reports</a>
+          <a href="{{ url_for('teacher_reports') }}">Analytics</a>
         {% endif %}
         <a class="btn small" href="{{ url_for('logout') }}">Logout</a>
       {% else %}

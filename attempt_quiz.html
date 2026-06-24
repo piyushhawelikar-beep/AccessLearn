@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head"><h1>{{ quiz.title }}</h1><p>{{ quiz.topic }} · By {{ quiz.teacher_name or 'Teacher' }}</p></div>
+<section class="panel glass">
+  {% if submitted %}
+    <div class="result-card"><h2>Your Score: {{ score }}/{{ questions|length }}</h2><p>Your score has been saved for teacher report.</p><a class="btn" href="{{ url_for('published_quizzes') }}">Back to Quizzes</a></div>
+  {% else %}
+    <form method="post">
+      {% for q in questions %}
+        {% set qi = loop.index0 %}
+        <div class="question-card">
+          <h3>Q{{ loop.index }}. {{ q.question }}</h3>
+          {% for op in q.options %}
+            <label class="option"><input type="radio" name="q{{ qi }}" value="{{ loop.index0 }}" required> {{ op }}</label>
+          {% endfor %}
+          <p class="muted">{{ q.explanation }}</p>
+        </div>
+      {% endfor %}
+      <button class="btn" type="submit">Submit Quiz</button>
+    </form>
+  {% endif %}
+</section>
+{% endblock %}
