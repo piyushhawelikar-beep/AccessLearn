@@ -1,26 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="page-head"><h1>Upload Learning Resource</h1><p>Teachers can share text notes, PDFs, DOC/PPT files, videos and external links.</p></div>
-<form class="form-panel glass" method="post" enctype="multipart/form-data">
+<div class="page-head"><h1>Upload Notes</h1><p>Teachers can add notes for students.</p></div>
+<form class="form-panel glass" method="post">
   <label>Title</label><input name="title" required placeholder="e.g. Basics of Artificial Intelligence">
   <label>Subject</label><input name="subject" required placeholder="e.g. Computer Science">
   <label>Description</label><input name="description" placeholder="Short description">
-  <label>Notes Content</label><textarea id="contentBox" name="content" rows="10" placeholder="Paste notes here or upload a file/link below..."></textarea>
-  <button class="btn ghost" type="button" id="generateNotesBtn">Generate Notes from Title</button>
-  <label>Upload File (PDF, DOCX, PPT, TXT, Image, Video)</label><input type="file" name="resource_file">
-  <label>Resource Link / Google Drive Link</label><input name="resource_link" placeholder="https://drive.google.com/...">
-  <label>Video / YouTube / Google Meet Recording Link</label><input name="video_link" placeholder="https://youtube.com/...">
-  <button class="btn" type="submit">Upload Resource</button>
+  <label>Notes Content</label><textarea name="content" rows="10" required placeholder="Paste notes here..."></textarea>
+  <button class="btn" type="submit">Upload Notes</button>
 </form>
-{% endblock %}
-{% block scripts %}
-<script>
-document.getElementById('generateNotesBtn')?.addEventListener('click', async ()=>{
-  const title=document.querySelector('input[name="title"]').value || document.querySelector('input[name="subject"]').value;
-  if(!title){ alert('Enter title or subject first'); return; }
-  const res=await fetch('/api/generate_notes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:title})});
-  const data=await res.json();
-  document.getElementById('contentBox').value=data.notes;
-});
-</script>
 {% endblock %}

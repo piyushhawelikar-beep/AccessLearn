@@ -1,33 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="page-head"><h1>Smart Notes Summarizer</h1><p>Understand long study material and convert it into complete structured revision notes.</p></div>
-<section class="two-col summarizer-layout">
+<div class="page-head"><h1>Smart Notes Summarizer</h1><p>Summarize pasted text, PDF/DOCX/PPTX/TXT files, links, or teacher-uploaded notes.</p></div>
+<section class="two-col">
   <div class="panel glass">
-    <h2>Input Source</h2>
-    <p class="muted">Use any one source: pasted text, file, link, or teacher notes.</p>
+    <h2>Summarize Content</h2>
     <label>Paste Text</label>
     <textarea id="notesInput" rows="8" placeholder="Paste your notes here..."></textarea>
-    <div class="input-grid">
-      <div><label>Upload File</label><input id="summaryFile" type="file" accept=".pdf,.docx,.pptx,.txt"></div>
-      <div><label>Web / Resource Link</label><input id="summaryUrl" placeholder="https://example.com/article"></div>
-    </div>
-    <label>Select Uploaded Teacher Notes</label>
-    <select id="summaryNote" class="pro-select">
+    <label>Upload File</label>
+    <input id="summaryFile" type="file" accept=".pdf,.docx,.pptx,.txt">
+    <label>Web / Resource Link</label>
+    <input id="summaryUrl" placeholder="https://example.com/article-or-notes">
+    <label>Or Select Uploaded Teacher Notes</label>
+    <select id="summaryNote">
       <option value="0">No teacher note selected</option>
       {% for note in notes %}<option value="{{ note.id }}">{{ note.title }} — {{ note.subject }}</option>{% endfor %}
     </select>
-    <button id="summarizeBtn" class="btn">Generate Structured Summary</button>
+    <button id="summarizeBtn" class="btn">Summarize</button>
   </div>
   <div class="panel glass">
-    <h2>Revision Output</h2>
-    <pre id="summaryOutput" class="output-box">Your summary will appear here in this format:
-
-Topic Overview
-Key Concepts
-Important Definitions
-Exam Revision Notes
-Practice Questions
-Final Summary</pre>
+    <h2>Summary</h2>
+    <pre id="summaryOutput" class="output-box">Your summary will appear here.</pre>
   </div>
 </section>
 {% endblock %}

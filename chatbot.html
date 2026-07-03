@@ -1,30 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="page-head"><h1>AI Learning Assistant</h1><p>Ask any general doubt or select teacher notes for context-based answers.</p></div>
-<section class="chat-shell glass pro-chat">
-  <div class="tool-card">
-    <div>
-      <label class="label-title">Answer Mode</label>
-      <select id="noteSelect" class="pro-select">
-        <option value="0">General Learning Assistant</option>
-        {% for note in notes %}<option value="{{ note.id }}">Notes Based: {{ note.title }} — {{ note.subject }}</option>{% endfor %}
-      </select>
+<div class="page-head"><h1>AI Chatbot</h1><p>Ask general doubts or select teacher notes for notes-based answers.</p></div>
+<section class="chat-shell glass">
+  <div class="chat-tools">
+    <label>Answer using selected teacher notes (optional)</label>
+    <select id="noteSelect">
+      <option value="0">General AI Assistant</option>
+      {% for note in notes %}<option value="{{ note.id }}">{{ note.title }} — {{ note.subject }}</option>{% endfor %}
+    </select>
+    <div id="suggestions" class="suggestions">
+      <button type="button" class="chip">Explain this topic in simple words</button>
+      <button type="button" class="chip">Create quick revision points</button>
+      <button type="button" class="chip">Generate 5 quiz questions</button>
     </div>
-    <details class="suggestion-panel">
-      <summary>Suggested questions</summary>
-      <div id="suggestions" class="suggestions clean-suggestions">
-        <button type="button" class="chip">What is Artificial Intelligence?</button>
-        <button type="button" class="chip">Explain AWS in simple words.</button>
-        <button type="button" class="chip">Difference between RAM and ROM.</button>
-        <button type="button" class="chip">Create exam revision notes on DBMS.</button>
-      </div>
-    </details>
   </div>
   <div id="chatBox" class="chat-box">
-    <div class="bot bubble">Hi {{ current_user.name }}! Select notes for notes-based answers, or ask any learning question.</div>
+    <div class="bot bubble">Hi {{ current_user.name }}! Ask me any learning question or select notes for notes-based answers.</div>
   </div>
   <form id="chatForm" class="chat-form">
-    <input id="messageInput" placeholder="Ask a doubt, e.g. What is Ohm's Law?" required>
+    <input id="messageInput" placeholder="Ask a doubt..." required>
     <button class="btn" type="submit">Send</button>
   </form>
 </section>

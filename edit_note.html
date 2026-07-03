@@ -1,15 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <div class="panel glass">
-  <h1>Edit Resource</h1>
+  <h1>Edit Note</h1>
+
   <form method="POST" class="form-card">
-    <label>Title</label><input type="text" name="title" value="{{ note.title }}" required>
-    <label>Subject</label><input type="text" name="subject" value="{{ note.subject }}" required>
-    <label>Description</label><textarea name="description" rows="3">{{ note.description }}</textarea>
-    <label>Content</label><textarea name="content" rows="12">{{ note.content }}</textarea>
-    <label>Resource Link</label><input name="resource_link" value="{{ note.resource_link or '' }}">
-    <label>Video Link</label><input name="video_link" value="{{ note.video_link or '' }}">
-    <button type="submit" class="btn">Update Resource</button>
+    <label>Title</label>
+    <input type="text" name="title" value="{{ note.title }}" required>
+
+    <label>Subject</label>
+    <input type="text" name="subject" value="{{ note.subject }}" required>
+
+    <label>Description</label>
+    <textarea name="description" rows="3">{{ note.description }}</textarea>
+
+    <label>Content</label>
+    <textarea name="content" rows="12" required>{{ note.content }}</textarea>
+
+    <button type="submit" class="btn">Update Note</button>
   </form>
 </div>
+
 {% endblock %}
