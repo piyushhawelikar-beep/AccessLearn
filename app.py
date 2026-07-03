@@ -47,13 +47,7 @@ from database import get_db, init_app
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent
-
-# Use /tmp on Vercel because the project directory is read-only
-if os.getenv("VERCEL"):
-    UPLOAD_DIR = Path("/tmp/uploads")
-else:
-    UPLOAD_DIR = BASE_DIR / "static" / "uploads"
-
+UPLOAD_DIR = BASE_DIR / "static" / "uploads"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 ALLOWED_EXTENSIONS = {"pdf", "doc", "docx", "ppt", "pptx", "txt", "mp4", "webm", "mov", "png", "jpg", "jpeg"}

@@ -5,7 +5,7 @@ const fileInput = document.getElementById('summaryFile');
 const urlInput = document.getElementById('summaryUrl');
 const noteSelect = document.getElementById('summaryNote');
 btn?.addEventListener('click', async ()=>{
-  output.textContent='Generating smart summary...';
+  output.textContent='Reading and summarizing the complete content...';
   const fd = new FormData();
   fd.append('text', input?.value || '');
   fd.append('url', urlInput?.value || '');

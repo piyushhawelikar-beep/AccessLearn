@@ -1,19 +1,21 @@
 const topicInput=document.getElementById('topicInput');
+const noteSelect=document.getElementById('quizNoteSelect');
 const genBtn=document.getElementById('generateQuizBtn');
 const quizContainer=document.getElementById('quizContainer');
 const result=document.getElementById('quizResult');
 let questions=[];
 genBtn?.addEventListener('click', async ()=>{
-  result.textContent=''; quizContainer.innerHTML='Generating quiz...';
-  const topic=topicInput.value || 'General Learning';
-  const res=await fetch('/api/generate_quiz',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic})});
-  const data=await res.json(); questions=data.questions; renderQuiz(topic);
+  result.textContent=''; quizContainer.innerHTML='Generating 10 meaningful questions...';
+  const topic=topicInput.value || '';
+  const note_id=noteSelect?.value || 0;
+  const res=await fetch('/api/generate_quiz',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic,note_id})});
+  const data=await res.json(); questions=data.questions; renderQuiz(topic || 'Selected Notes');
 });
 function renderQuiz(topic){
   quizContainer.innerHTML='';
   questions.forEach((q,i)=>{
     const card=document.createElement('div'); card.className='question-card';
-    card.innerHTML=`<h3>Q${i+1}. ${q.question}</h3>`+q.options.map((op,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"> ${op}</label>`).join('')+`<p class="muted">${q.explanation}</p>`;
+    card.innerHTML=`<h3>Q${i+1}. ${q.question}</h3>`+q.options.map((op,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"> ${op}</label>`).join('')+`<p class="muted"><b>Why:</b> ${q.explanation}</p>`;
     quizContainer.appendChild(card);
   });
   const submit=document.createElement('button'); submit.className='btn'; submit.textContent='Submit Quiz';

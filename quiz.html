@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="page-head"><h1>Quiz Generator</h1><p>Generate topic-wise quizzes and save scores.</p></div>
+<div class="page-head"><h1>Practice Quiz Generator</h1><p>Generate 10 meaningful topic-wise or notes-based MCQs.</p></div>
 <section class="panel glass">
-  <div class="quiz-config">
-    <input id="topicInput" placeholder="Enter topic e.g. Artificial Intelligence">
-    <button id="generateQuizBtn" class="btn">Generate Quiz</button>
+  <div class="quiz-config pro-quiz-config">
+    <input id="topicInput" placeholder="Enter topic e.g. DBMS, Python, Ohm's Law, Artificial Intelligence">
+    <select id="quizNoteSelect" class="pro-select">
+      <option value="0">Optional: generate from teacher notes</option>
+      {% if notes %}{% for note in notes %}<option value="{{ note.id }}">{{ note.title }} — {{ note.subject }}</option>{% endfor %}{% endif %}
+    </select>
+    <button id="generateQuizBtn" class="btn">Generate 10-Question Quiz</button>
   </div>
   <div id="quizContainer" class="quiz-container"></div>
   <div id="quizResult" class="result-card"></div>
